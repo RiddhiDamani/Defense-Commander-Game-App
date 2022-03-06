@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DefenseCommanderApp</string>
+    <string name="title_image">Title Image</string>
 </resources>
