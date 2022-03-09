@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
 
         setupFullScreen();
         getScreenDimensions();
+        setupImages();
+
     }
     private void setupFullScreen() {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -43,6 +45,14 @@ public class MainActivity extends AppCompatActivity {
         leftScreenPart = (float) (screenWidth * 0.33);
         midScreenPart = (float) (screenWidth * 0.5);
         rightScreenPart = (float) (screenWidth * 0.66);
+    }
+
+    private void setupImages() {
+        layout = findViewById(R.id.layout);
+        score = findViewById(R.id.score);
+        level = findViewById(R.id.level);
+
+        new CloudScroller(this, layout, R.drawable.clouds, 30000, screenHeight, screenWidth);
     }
 
 }
