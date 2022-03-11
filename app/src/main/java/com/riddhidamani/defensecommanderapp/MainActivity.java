@@ -8,14 +8,19 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.riddhidamani.defensecommanderapp.databinding.ActivityMainBinding;
+
 public class MainActivity extends AppCompatActivity {
     private int screenHeight;
     private int screenWidth;
     private float leftScreenPart, midScreenPart, rightScreenPart;
+    private ActivityMainBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(R.layout.activity_main);
 
         setupFullScreen();
@@ -41,18 +46,24 @@ public class MainActivity extends AppCompatActivity {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         screenHeight = displayMetrics.heightPixels;
-        screenWidth = displayMetrics.widthPixels;
+        screenWidth = displayMetrics.widthPixels + getBarHeight();
         leftScreenPart = (float) (screenWidth * 0.33);
         midScreenPart = (float) (screenWidth * 0.5);
         rightScreenPart = (float) (screenWidth * 0.66);
     }
 
-    private void setupImages() {
-        layout = findViewById(R.id.layout);
-        score = findViewById(R.id.score);
-        level = findViewById(R.id.level);
+    private int getBarHeight() {
+        int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            return getResources().getDimensionPixelSize(resourceId);
+        }
+        return 0;
+    }
 
-        new CloudScroller(this, layout, R.drawable.clouds, 30000, screenHeight, screenWidth);
+
+    private void setupImages() {
+
+        CloudScrollerVolley.setUpImages(this, R.drawable.clouds, 30000, screenHeight, screenWidth);
     }
 
 }

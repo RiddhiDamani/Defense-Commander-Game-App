@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">DefenseCommanderApp</string>
     <string name="title_image">Title Image</string>
+    <string name="base">Base</string>
+    <string name="back_ground">Back Ground</string>
+    <string name="title">title</string>
+    <string name="score">score</string>
+    <string name="level">level</string>
+    <string name="title_gameOver">Title GameOver</string>
+    <string name="exit">Exit</string>
+    <string name="top_players">Top Players</string>
+    <string name="player_info">Player Info</string>
 </resources>
