@@ -2,8 +2,10 @@ package com.riddhidamani.defensecommanderapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -12,6 +14,8 @@ import android.widget.ImageView;
 
 public class SplashActivity extends AppCompatActivity {
 
+    private final int SPLASH_LENGTH = 3000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +23,8 @@ public class SplashActivity extends AppCompatActivity {
 
         fullScreenSetUp();
         fadeInTitle();
+        setupBackGroundSound();
+        initiateMainActivity();
     }
 
     private void fullScreenSetUp() {
@@ -39,5 +45,24 @@ public class SplashActivity extends AppCompatActivity {
         ImageView titleImageView= findViewById(R.id.titleImage);
         Animation myFadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fadein);
         titleImageView.startAnimation(myFadeInAnimation);
+    }
+
+    private void setupBackGroundSound() {
+        SoundPlayer sp = SoundPlayer.getInstance();
+        sp.setupSound(this, "background", R.raw.background, true);
+        sp.setupSound(this, "base_blast", R.raw.base_blast, false);
+        sp.setupSound(this, "interceptor_blast", R.raw.interceptor_blast, false);
+        sp.setupSound(this, "interceptor_hit_missile", R.raw.interceptor_hit_missile, false);
+        sp.setupSound(this, "launch_interceptor", R.raw.launch_interceptor, false);
+        sp.setupSound(this, "launch_missile", R.raw.launch_missile, false);
+        sp.setupSound(this, "missile_miss", R.raw.missile_miss, false);
+    }
+
+    private void initiateMainActivity() {
+        new Handler().postDelayed(() -> {
+            Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);
+            startActivity(mainIntent);
+            finish();
+        }, SPLASH_LENGTH);
     }
 }

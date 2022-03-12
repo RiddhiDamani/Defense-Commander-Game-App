@@ -6,7 +6,9 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.riddhidamani.defensecommanderapp.databinding.ActivityMainBinding;
 
@@ -14,13 +16,15 @@ public class MainActivity extends AppCompatActivity {
     private int screenHeight;
     private int screenWidth;
     private float leftScreenPart, midScreenPart, rightScreenPart;
+    private ViewGroup layout;
+    private TextView score, level;
     private ActivityMainBinding binding;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        //binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(R.layout.activity_main);
 
         setupFullScreen();
@@ -60,10 +64,11 @@ public class MainActivity extends AppCompatActivity {
         return 0;
     }
 
-
     private void setupImages() {
-
-        CloudScrollerVolley.setUpImages(this, R.drawable.clouds, 30000, screenHeight, screenWidth);
+        layout = findViewById(R.id.constraint_layout);
+        score = findViewById(R.id.score);
+        level = findViewById(R.id.level);
+        new CloudScrollerParallaxBG(this, layout, R.drawable.clouds, 30000, screenHeight, screenWidth);
     }
 
 }
