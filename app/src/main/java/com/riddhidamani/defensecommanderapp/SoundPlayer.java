@@ -26,7 +26,7 @@ public class SoundPlayer {
     static int loadCount;
     static int doneCount;
 
-    private int currentVolumeLevel = 8;
+    private int currentVolumeLevel = 9;
 
     private SoundPlayer() {
 
@@ -63,7 +63,6 @@ public class SoundPlayer {
         loadCount++;
     }
 
-
     void start(final String id) {
         if (!loaded.contains(soundNameToResource.get(id))) {
             Log.d(TAG, "start: SOUND NOT LOADED: " + id);
@@ -84,14 +83,13 @@ public class SoundPlayer {
 
 
     }
-    void stop(String id) {
 
+    void stop(String id) {
         Integer streamId = soundNameToStream.get(id);
         if (streamId == null)
             return;
         soundPool.stop(streamId);
     }
-
 
     void muteSound(Context context, boolean mute) {
         AudioManager mgr = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);

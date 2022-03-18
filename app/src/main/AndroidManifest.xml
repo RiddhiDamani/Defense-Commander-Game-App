@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.riddhidamani.defensecommanderapp">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -11,19 +14,25 @@
         android:theme="@style/Theme.DefenseCommanderApp">
         <activity
             android:name=".SplashActivity"
+            android:exported="true"
             android:screenOrientation="landscape"
-            android:exported="true">
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-         </activity>
+        </activity>
+        <activity
+            android:name=".TopPlayersActivity"
+            android:screenOrientation="landscape"
+            tools:ignore="LockedOrientationActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
+            android:exported="true"
             android:screenOrientation="landscape"
-            android:exported="true">
-        </activity>
+            tools:ignore="LockedOrientationActivity"></activity>
     </application>
 
 </manifest>

@@ -14,7 +14,7 @@ import android.widget.ImageView;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private final int SPLASH_LENGTH = 3000;
+    private final int SPLASH_LENGTH = 7000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +48,14 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void setupBackGroundSound() {
-        SoundPlayer sp = SoundPlayer.getInstance();
-        sp.setupSound(this, "background", R.raw.background, true);
-        sp.setupSound(this, "base_blast", R.raw.base_blast, false);
-        sp.setupSound(this, "interceptor_blast", R.raw.interceptor_blast, false);
-        sp.setupSound(this, "interceptor_hit_missile", R.raw.interceptor_hit_missile, false);
-        sp.setupSound(this, "launch_interceptor", R.raw.launch_interceptor, false);
-        sp.setupSound(this, "launch_missile", R.raw.launch_missile, false);
-        sp.setupSound(this, "missile_miss", R.raw.missile_miss, false);
+        SoundPlayer soundPlayer = SoundPlayer.getInstance();
+        soundPlayer.setupSound(this, "background", R.raw.background, true);
+        soundPlayer.setupSound(this, "base_blast", R.raw.base_blast, false);
+        soundPlayer.setupSound(this, "interceptor_blast", R.raw.interceptor_blast, false);
+        soundPlayer.setupSound(this, "interceptor_hit_missile", R.raw.interceptor_hit_missile, false);
+        soundPlayer.setupSound(this, "launch_interceptor", R.raw.launch_interceptor, false);
+        soundPlayer.setupSound(this, "launch_missile", R.raw.launch_missile, false);
+        soundPlayer.setupSound(this, "missile_miss", R.raw.missile_miss, false);
     }
 
     private void initiateMainActivity() {
