@@ -37,7 +37,7 @@ public class MissileMaker implements Runnable{
         long delay = LEVEL_COUNT * 1000;
         while (isRunning) {
 
-            int resId = missileDraw();
+            int resId = pickMissile();
 
             long missileTime = (long) ((delay * 0.5) + (Math.random() * delay));
             final Missile missile = new Missile(screenWidth, screenHeight, missileTime, mainActivity);
@@ -66,7 +66,7 @@ public class MissileMaker implements Runnable{
         }
     }
 
-    private int missileDraw() {
+    private int pickMissile() {
         return R.drawable.missile;
     }
 

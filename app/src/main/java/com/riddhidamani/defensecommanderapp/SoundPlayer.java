@@ -39,7 +39,9 @@ public class SoundPlayer {
             Log.d(TAG, "onLoadComplete: #" + sampleId + "  " + status);
             loaded.add(sampleId);
             doneCount++;
-            if (doneCount == 7) start("background");
+            if (doneCount == 5) {
+                start("background");
+            }
         });
     }
 
@@ -52,10 +54,7 @@ public class SoundPlayer {
     void setupSound(Context context, String id, int resource, boolean loop) {
 
         int soundId = soundPool.load(context, resource, 1);
-
         soundNameToResource.put(id, soundId);
-
-
         if (loop)
             loopList.add(id);
 

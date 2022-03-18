@@ -1,5 +1,16 @@
 package com.riddhidamani.defensecommanderapp;
 
+/**
+ * Defense Commander app is a game, a modern take on an 80’s era video game where the user defends their bases
+ * against missile attacks.
+ *
+ * @author  Riddhi Damani
+ * @version 1.0
+ * @since   2022-03-17
+ *
+ * Code Credits: Most of the base code is credited to Prof. Christopher's Code Sample shown in the class. This
+ * game has been build upon that.
+ */
 import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -57,6 +68,13 @@ public class MainActivity extends AppCompatActivity {
 
         if (getIntent().getBooleanExtra("EXIT", false)) {
             finish();
+            SoundPlayer.getInstance().stop("background");
+            SoundPlayer.getInstance().stop("base_blast");
+            SoundPlayer.getInstance().stop("interceptor_blast");
+            SoundPlayer.getInstance().stop("interceptor_hit_missile");
+            SoundPlayer.getInstance().stop("launch_interceptor");
+            SoundPlayer.getInstance().stop("launch_missile");
+            SoundPlayer.getInstance().stop("missile_miss");
             return;
         }
 
@@ -65,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         setupImages();
         setupBases();
         setupOnTouchListener();
+        SoundPlayer.getInstance().start("background");
 
         missileMaker = new MissileMaker(this, screenWidth, screenHeight);
         new Thread(missileMaker).start();
@@ -196,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // handle touch logic : EC #1 and EC #4
+    // handle touch logic : EC #1 and
     private void handleTouch(float x, float y) {
         ImageView launcher;
 
@@ -206,7 +225,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         interceptorInFlight++;
-        // EC : #4 Interceptors that explode near a Base can destroy the Base.
         if (x < base1leftSW) {
             if (baseAlive.contains(base1)) {
                 launcher = findViewById(R.id.base1);
@@ -253,6 +271,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        // Prof. Code
         if (launcher == null) return;
 
         double startX = launcher.getX() + (0.5 * launcher.getWidth());
@@ -275,18 +294,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void createAlertDialog(TopPlayersDetails topPlayersDetails) {
         final EditText et;
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         et = new EditText(getApplicationContext());
         int maxLength = 3;
         et.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength)});
 
-        alert.setTitle("You are a Top-Player!");
-        alert.setMessage("Please enter your initials (up to 3 characters)");
-        alert.setView(et);
+        builder.setTitle("You are a Top-Player!");
+        builder.setMessage("Please enter your initials (up to 3 characters)");
+        builder.setView(et);
 
         // Ok Button
-        alert.setPositiveButton("OK", (dialog, i) -> {
+        builder.setPositiveButton(R.string.OK_button, (dialogInterface, i) -> {
             String initials = et.getText().toString();
             String levelStr = level.getText().toString();
             int levelValue = Integer.parseInt(levelStr.substring(7));
@@ -297,8 +315,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Cancel Button
-        alert.setNegativeButton("CANCEL", (dialog, i) -> setResults(topPlayersDetails.getTopPlayerDetails()));
-        alert.show();
+        builder.setNegativeButton(R.string.CANCEL_button, (dialogInterface, i) -> setResults(topPlayersDetails.getTopPlayerDetails()));
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     public void setResults(String s) {

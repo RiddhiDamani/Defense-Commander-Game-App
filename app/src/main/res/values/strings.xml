@@ -10,4 +10,6 @@
     <string name="exit">Exit</string>
     <string name="top_players">Top Players</string>
     <string name="player_info">Player Details</string>
+    <string name="OK_button">OK</string>
+    <string name="CANCEL_button">CANCEL</string>
 </resources>

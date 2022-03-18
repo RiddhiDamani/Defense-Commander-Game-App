@@ -23,6 +23,8 @@ public class Interceptor {
     private static int idVal = -1;
     static final int INTERCEPTOR_BLAST = 180;
     private static final double DISTANCE_TIME = 0.75;
+    ArrayList<Base> activeBases;
+    ArrayList<Base> inactiveBase = new ArrayList<>();
 
     Interceptor(MainActivity mainActivity, float startX, float startY, float endX, float endY) {
         this.mainActivity = mainActivity;
@@ -70,6 +72,7 @@ public class Interceptor {
                 mainActivity.getLayout().removeView(imageview);
                 mainActivity.lowerFlightInterceptor();
                 makeBlast();
+                // EC : #4 Interceptors that explode near a Base can destroy the Base.
                 verifyBaseHitted();
             }
         });
@@ -114,26 +117,27 @@ public class Interceptor {
     }
 
     private void verifyBaseHitted() {
-        ArrayList<Base> activeBases = mainActivity.getBaseAlive();
-        ArrayList<Base> toRemoveBases = new ArrayList<>();
-        for (Base b: activeBases) {
-            float x1 = (int) b.getX();
-            float y1 = (int) b.getY();
+        activeBases = mainActivity.getBaseAlive();
+        for (Base base: activeBases) {
+            float x1 = (int) base.getX();
+            float y1 = (int) base.getY();
             float x2 = (int) (imageview.getX() + (0.5 * imageview.getWidth()));
             float y2 = (int) (imageview.getY() + (0.5 * imageview.getHeight()));
 
             float f = (float) Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
 
             if (f < 180) {
-                toRemoveBases.add(b);
+                inactiveBase.add(base);
             }
         }
 
-        for (Base b: toRemoveBases) {
-            b.blastTheBase();
-            mainActivity.getLayout().removeView(b.getImageView());
-            activeBases.remove(b);
-            if (activeBases.size() == 0) mainActivity.gameOver();
+        for (Base base: inactiveBase) {
+            base.blastTheBase();
+            mainActivity.getLayout().removeView(base.getImageView());
+            activeBases.remove(base);
+            if (activeBases.size() == 0) {
+                mainActivity.gameOver();
+            }
         }
     }
 
