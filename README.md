@@ -15,4 +15,4 @@ The game increases in difficulty as time passes (i.e. Levels).
 8. Scoring in the top 10 allows the user to enter their initials
 9. Scores are displayed at the end of the game
 
-<img src="./app/src/main/res/a4.gif" width="800" height="400"/>
+<img src="./app/src/main/res/a4.gif" width="300" height="500"/>
